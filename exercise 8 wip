@@ -1,0 +1,132 @@
+import java.util.*;
+import java.io.*;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package exercise.pkg8;
+
+ 
+class BankingThread extends Thread implements Comparable<BankingThread> {
+ 
+private Account account;
+private String mode;
+
+public BankingThread(String n, Account ac, String m)
+{ super(n); account = ac; mode = m; }
+
+BankingThread(n, 
+
+public void run()
+{
+
+        
+/* Add a loop to process either 5 consecutive deposits (mode = m) or 5
+consecutive withdraws (mode = w). For each transaction processing
+
+1. Random the amount of money to deposit/withdraw. You may set the range of
+random values, e.g. 1-10
+
+while(j=15){
+        j=0;
+        int numbers;
+        Random rand = new Random();
+        
+        numbers = rand.nextInt(9)+1;
+
+2. Call account.deposit(…) or account.withdraw(…) to deposit/withdraw money
+if (mode= "m"){ account.deposit(balance);
+if (mode= "w"){ account.withdraw(balance);
+else closefile();
+
+j++;
+}
+*/
+
+
+}
+
+ @Override
+    public int compareTo(BankingThread temp) {
+        return (this.account - temp.account);
+    }
+} // end BankingThread
+
+
+
+class Account {
+private int balance;
+public Account(int b) { balance = b; }
+
+       
+
+public void deposit(int money)
+{
+  int j=0;
+  while(j=15){
+  
+  
+  
+  }
+  
+// Update balance &amp; print thread name, transaction ID, money to deposit, balance
+}
+
+
+public void withdraw(int money)
+{
+/* If there is enough money to withdraw
+- Update balance
+- Print thread name, transaction ID, money to withdraw, balance
+Otherwise
+- Print thread name, transaction ID, money to withdraw, failure message
+*/
+}
+
+
+
+} // end Account
+
+
+
+
+public class Exercise8 {
+
+    
+    public static void main(String[] args) {
+        
+        Scanner myObj = new Scanner(System.in); 
+        System.out.print("initial balance: ");
+        int balance = myObj.nextLine();
+         
+        System.out.print("Number of Thread: ");
+        int numT = myObj.nextLine();
+         
+        ArrayList <Thread> list = new ArrayList<Thread>();
+        for (int i = 0; i < numT; i++)
+        {
+            Thread temp;
+            String T_name = "T" + (i+1);
+                
+            temp = new RandomThread (T_name,same);
+            list.add(temp);
+            list.get(i).start();
+        }
+        //account.getInt(balance);
+        
+        
+        System.out.print("Enter D (deposit), W (withdraw), or other (quit) = ");
+        
+        
+        BankingThread (n,balance,numT);
+        
+        while(loop=false){
+        
+        
+        
+        }
+      
+    
+}
