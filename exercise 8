@@ -1,0 +1,123 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
+
+class BankingThread extends Thread{
+private Account account;
+private String mode;
+public int transactionNum=1;
+
+public BankingThread(String n, Account ac, String m)
+        { super(n); account = ac; mode = m; }
+public void run() {
+
+
+/* Add a loop to process either 5 consecutive deposits (mode = m) or 5
+consecutive withdraws (mode = w). For each transaction processing
+1. Random the amount of money to deposit/withdraw. You may set the range of
+random values, e.g. 1-10
+2. Call account.deposit(ů) or account.withdraw(ů) to deposit/withdraw money
+*/
+
+    Random rand = new Random();
+    if (mode.equalsIgnoreCase("w")) {
+        for (int i = 0; i < 5; i++) {
+            int randomNumber = rand.nextInt(9) + 1;
+            account.withdraw(randomNumber);
+            transactionNum++;
+        }
+    }
+    else if (mode.equalsIgnoreCase("d"))
+    {
+        for (int i =0; i<5;i++)
+        {
+            int randomNumber = rand.nextInt(9) + 1;
+            account.deposit(randomNumber);
+            transactionNum++;
+
+        }
+
+    }
+    else {
+        System.out.println("Ended Program");
+        System.exit(0);
+    }
+}
+
+}
+
+
+    class Account {
+        private int balance;
+
+        public int getBalance()
+        {
+            return balance;
+        }
+
+        public Account(int b) {
+            balance = b;
+        }
+
+
+        synchronized public void deposit(int money) {
+            balance += money;
+            BankingThread me = (BankingThread) Thread.currentThread();
+
+            System.out.println("T" + me.getName() + "  " + "transaction " + me.transactionNum + "  " + "+ " + money + " balance " + "=  " + balance);
+        }
+
+        synchronized public void withdraw(int money) {
+            BankingThread me = (BankingThread) Thread.currentThread();
+
+            if (balance >= money) {
+                balance -= money;
+                System.out.println("T" + me.getName() + "  " + "transaction " + me.transactionNum + "  " + "- " + money + " balance " + "=  " + balance);
+
+            } else {
+                System.out.println("T" + me.getName() + "  " + "transaction " + me.transactionNum + "  " + "- " + money + " fails");
+
+            }
+
+        }
+
+
+
+
+    } // end Account
+public class exercise_8 {
+    public static void main(String[] args) 
+            throws InterruptedException {
+
+            Scanner scan = new Scanner(System.in);
+            System.out.print("Initial Balance     =  ");
+            int initialBalance = scan.nextInt();
+            System.out.print("\nNumber of Threads   =  ");
+            int noThread = scan.nextInt();
+        Account acc = new Account(initialBalance);
+
+        while (true) {
+
+            System.out.print("\nEnter D (deposit), W (withdraw), or other (quit) =  ");
+            String modeInput = scan.next();
+            ArrayList<BankingThread> btList = new ArrayList<>();
+
+            for (int i = 1; i <= noThread; i++) {
+                btList.add(new BankingThread(Integer.toString(i), acc, modeInput));
+            }
+
+            for (BankingThread thread : btList) {
+                thread.start();
+            }
+
+            for (BankingThread thread : btList) {
+                thread.join();
+            }
+            System.out.println("===== Final Balance = " + acc.getBalance() + " =====");
+
+        }
+    }
+
+}
