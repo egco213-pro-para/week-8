@@ -48,17 +48,24 @@ public void run() {
         synchronized public void deposit(int money) {
             balance += money;
             BankingThread me = (BankingThread) Thread.currentThread();
-            System.out.println("T" + me.getName() + "  " + "transaction " + me.transactionNum + "  " + "+ " + money 
-            + " balance " + "=  " + balance);
+            System.out.println("T" + me.getName() + 
+                                "  " + "transaction " + me.transactionNum + 
+                                "  " + "+ " + money + " balance " + "=  " + balance);
         }
         synchronized public void withdraw(int money) {
             BankingThread me = (BankingThread) Thread.currentThread();
-            if (balance >= money) {
+            if (balance >= money) 
+            {
                 balance -= money;
-                System.out.println("T" + me.getName() + "  " + "transaction " + me.transactionNum + "  " + "- " + money
-                + " balance " + "=  " + balance);
-            } else {
-                System.out.println("T" + me.getName() + "  " + "transaction " + me.transactionNum + "  " + "- " + money + " fails");
+                System.out.println("T" + me.getName() + 
+                                   "  " + "transaction " + me.transactionNum + 
+                                   "  " + "- " + money + " balance " + "=  " + balance);
+            } 
+            else 
+            {
+                System.out.println("T" + me.getName() + 
+                                   "  " + "transaction " + me.transactionNum + 
+                                   "  " + "- " + money + " fails");
             }
         }
     } // end Account
